@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import AppointmentsByDate from '../AppointmentsByDate/AppointmentsByDate';
 import Sidebar from '../Sidebar/Sidebar';
@@ -8,28 +8,28 @@ import 'react-calendar/dist/Calendar.css';
 const Dashboard = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [apointments, setApointments] = useState([])
-    console.log(selectedDate)
 
-
+    console.log(apointments)
 
         const handleDateChange = date => {
             setSelectedDate(date);
+            
+        };
 
-                fetch(`http://localhost:5500/appointmentByDate`, {
+        useEffect(()=>{
+            fetch(`http://localhost:5500/appointmentByDate`, {
                     method: 'POST', 
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(selectedDate),
+                    body: JSON.stringify({selectedDate}),
                     })
                     .then(response => response.json())
                     .then(data => setApointments(data))
                     .catch((error) => {
                     console.error('Error:', error);
                     });
-            
-        };
-
+        },[selectedDate])
 
     return (
         <section>

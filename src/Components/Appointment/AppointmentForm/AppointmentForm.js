@@ -19,7 +19,7 @@ Modal.setAppElement("#root");
 const AppointmentForm = ({modalIsOpen, closeModal, appointmentOn, date}) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = async data => {
+    const onSubmit = data => {
 
         data.service = appointmentOn;
         data.date = date;
@@ -28,7 +28,7 @@ const AppointmentForm = ({modalIsOpen, closeModal, appointmentOn, date}) => {
 
 
 
-        await fetch('http://localhost:5500/addAppointment', {
+         fetch('http://localhost:5500/addAppointment', {
             method: 'POST',
             headers: {
                 'content-type':'application/json'
@@ -36,13 +36,7 @@ const AppointmentForm = ({modalIsOpen, closeModal, appointmentOn, date}) => {
             body: JSON.stringify(data)
         })
         .then(res => res.json())
-        .then(success => {
-                    
-                    alert('Appointment Booked')
-                    closeModal();   
-            
-                
-        })
+        .then(success =>  closeModal())
 
     };
   
