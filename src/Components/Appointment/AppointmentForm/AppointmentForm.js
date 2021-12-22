@@ -36,13 +36,15 @@ const AppointmentForm = ({modalIsOpen, closeModal, appointmentOn, date}) => {
             body: JSON.stringify(data)
         })
         .then(res => res.json())
-        .then(success =>  closeModal())
+        .then(success =>  
+            alert('appointment Confirmed'),
+            closeModal())
 
     };
   
 
   return (
-    <div>
+    <div style={{zIndex:1}}>
 
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
 
@@ -96,6 +98,7 @@ const AppointmentForm = ({modalIsOpen, closeModal, appointmentOn, date}) => {
 
 
             <div className="form-group text-end">
+                <button onClick={closeModal} className="btn btn-brand mx-3">Close</button>
                 <button type="submit" className="btn btn-brand">Send</button>
             </div>
         </form>

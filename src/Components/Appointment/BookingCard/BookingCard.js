@@ -14,7 +14,7 @@ const BookingCard = ({ booking, date }) => {
   }
 
   return (
-    <div className="col-md-4 text-center mt-5 mb-5">
+    <div className="col-md-4 text-center mt-5 mb-5" >
       <div className="card p-3">
         <div className="card-body text-center">
             <h4 className=" card-title text-brand">{booking.subject}</h4>

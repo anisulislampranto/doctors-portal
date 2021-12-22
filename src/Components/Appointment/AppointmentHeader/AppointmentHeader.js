@@ -1,7 +1,7 @@
 import React from "react";
-import chair from "./../../../images/chair.png";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
+import appointment from './../../../images/appointment.jpg'
 
 const AppointmentHeader = ({handleDateChange}) => {
 
@@ -13,8 +13,8 @@ const AppointmentHeader = ({handleDateChange}) => {
           <Calendar onChange={handleDateChange} value={new Date()} />
         </div>
       </div>
-      <div className="col-md-6 chair-image">
-        <img width="100%" src={chair} alt="" />
+      <div className="col-md-6">
+        <img className="rounded" width="100%" src={appointment} alt="" />
       </div>
     </main>
   );
