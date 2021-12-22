@@ -4,15 +4,20 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import firebaseConfig from "./firebase.config";
 import { initializeApp } from "firebase/app";
 import { UserContext } from "../../../App";
+import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 initializeApp(firebaseConfig);
 
 
 
 const Login = () => {
-
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+  const history = useHistory();
+  const location = useLocation();
   console.log(loggedInUser)
+
+  const { from } = location.state || { from: { pathname: "/" } };
 
 
   const handleGoogleSignIn = () => {
@@ -20,10 +25,7 @@ const Login = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
         const {displayName, email, photoURL} = result.user;
         const signedInUserInfo = {
           isSignedIn:true,
@@ -33,6 +35,8 @@ const Login = () => {
 
         }
         setLoggedInUser(signedInUserInfo)
+        history.replace(from);
+
         // ...
       })
       .catch((error) => {
@@ -51,6 +55,7 @@ const Login = () => {
 
   return (
     <section className="row align-items-center">
+      <h1>{loggedInUser.displayName}</h1>
       <div className="col-md-6">
         <div className="text-center">
           <button onClick={handleGoogleSignIn}>Google Log In</button>
